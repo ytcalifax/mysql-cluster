@@ -17,6 +17,7 @@ innodb_buffer_pool_instances = 6
 
 {% if configure_ssl_connection == true %}
 #require_secure_transport = ON
+group_replication_ssl_mode = REQUIRED
 ssl-cipher=DHE-RSA-AES256-SHA
 ssl-ca=/var/lib/mysql/ca.pem
 ssl-cert=/var/lib/mysql/server-cert.pem
