@@ -11,7 +11,7 @@
 - name: Fetch SSL certificates from the first host in mysql_hosts group
   ansible.builtin.fetch:
     src: "/var/lib/mysql/{{ item }}"
-    dest: "/tmp/fetched_ssl_certs/{{ groups['mysql_hosts'][0] }}/"
+    dest: "/tmp/fetched_ssl_certs/{{ ansible_play_hosts[0] }}/"
     flat: yes
   loop:
     - ca.pem
@@ -19,14 +19,14 @@
     - client-key.pem
     - server-cert.pem
     - server-key.pem
-  delegate_to: "{{ groups['mysql_hosts'][0] }}"
+  delegate_to: "{{ ansible_play_hosts[0] }}"
   run_once: true
   when: configure_ssl_connection | default(false) and
-        inventory_hostname == groups['mysql_hosts'][0]
+        inventory_hostname == ansible_play_hosts[0]
 
 - name: Copy SSL certificates to all mysql hosts
   ansible.builtin.copy:
-    src: "/tmp/fetched_ssl_certs/{{ groups['mysql_hosts'][0] }}/{{ item }}"
+    src: "/tmp/fetched_ssl_certs/{{ ansible_play_hosts[0] }}/{{ item }}"
     dest: "/var/lib/mysql/mysql_ssl/{{ item }}"
     owner: mysql
     group: mysql
@@ -38,7 +38,7 @@
     - server-cert.pem
     - server-key.pem
   when: configure_ssl_connection | default(false) and
-        inventory_hostname != groups['mysql_hosts'][0]
+        inventory_hostname != ansible_play_hosts[0]
 
 - name: Deploy mysql config file on Debian
   ansible.builtin.template:

@@ -31,7 +31,7 @@
 
 - name: Set Bootstrap node
   ansible.builtin.set_fact:
-    is_bootstrap_node: "{{ inventory_hostname == groups['mysql_hosts'][0] }}"
+    is_bootstrap_node: "{{ inventory_hostname == ansible_play_hosts[0] }}"
 
 - name: Copy file
   ansible.builtin.copy:
@@ -61,7 +61,7 @@
 
 - name: Set non-bootstrap nodes
   ansible.builtin.set_fact:
-    non_bootstrap_nodes: "{{ groups['mysql_hosts'] | difference([groups['mysql_hosts'][0]]) }}"
+    non_bootstrap_nodes: "{{ ansible_play_hosts | difference([ansible_play_hosts[0]]) }}"
 
 
 - name: MySQL Cluster - Add nodes

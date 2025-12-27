@@ -1,6 +1,6 @@
 ---
 # defaults file for mysql-cluster
-mysql_version: 8.0.43
+mysql_version: 8.0.44
 
 configure_ssl_connection: true
 
