@@ -1,5 +1,3 @@
----
-
 # MySQL Cluster — Ansible Role
 
 This Ansible role automates the **installation and configuration of a MySQL Cluster** on Debian- and Red Hat-based systems.  
