@@ -43,7 +43,7 @@
     - ansible_os_family == "RedHat"
     - firewall_enabled
 
-- name: Ensure UFW is disabled and stopped on Debian
+- name: Ensure UFW is disabled and stopped on {{ ansible_os_family }}
   ansible.builtin.systemd:
     name: ufw
     state: stopped
@@ -52,7 +52,7 @@
     - ansible_os_family == "Debian"
     - not firewall_enabled
 
-- name: Ensure firewalld is disabled and stopped on RedHat
+- name: Ensure firewalld is disabled and stopped on {{ ansible_os_family }}
   ansible.builtin.systemd:
     name: firewalld
     state: stopped
